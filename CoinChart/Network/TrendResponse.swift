@@ -16,15 +16,15 @@ struct Coin: Decodable {
     let item: Item
 }
 
-struct Item: Decodable {
+struct Item: Decodable, Identifiable {
     let id: String
 //    let coinID: Int
     let name: String
     let symbol: String
-    let marketCapRank: Int
-    let thumb: String
+//    let marketCapRank: Int
+//    let thumb: String
     let small: String
-    let large: String
+//    let large: String
 //    let slug: String
 //    let priceBTC: Double
 //    let score: Int
@@ -35,10 +35,10 @@ struct Item: Decodable {
 //        case coinID = "coin_id"
         case name
         case symbol
-        case marketCapRank = "market_cap_rank"
-        case thumb
+//        case marketCapRank = "market_cap_rank"
+//        case thumb
         case small
-        case large
+//        case large
 //        case slug
 //        case priceBTC = "price_btc"
 //        case score

@@ -5,8 +5,7 @@
 //  Created by J Oh on 9/9/24.
 //
 
-import SwiftUI
-import Alamofire
+import SwiftUI 
 
 struct TrendingView: View {
     var body: some View {
@@ -16,12 +15,20 @@ struct TrendingView: View {
             }
             .navigationTitle("Crypto Coin")
         }
-        .onAppear {
-            
-        }
     }
 }
 
-//#Preview {
-//    TrendingView()
-//}
+struct Top15CoinView: View {
+    var body: some View {
+        ScrollView(.horizontal) {
+            HStack {
+                
+            }
+        }
+    }
+    
+}
+
+#Preview {
+    TrendingView()
+}

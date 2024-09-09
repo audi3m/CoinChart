@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D408C4282C8F28BB001464E7 /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = D408C4272C8F28BB001464E7 /* Dummy.swift */; };
+		D408C42B2C8F2F77001464E7 /* NavigationLazyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D408C42A2C8F2F77001464E7 /* NavigationLazyView.swift */; };
 		D42FB9812C8EC529002BA635 /* CoinChartApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB9802C8EC529002BA635 /* CoinChartApp.swift */; };
 		D42FB9832C8EC529002BA635 /* CoinTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D42FB9822C8EC529002BA635 /* CoinTabView.swift */; };
 		D42FB9852C8EC52A002BA635 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D42FB9842C8EC52A002BA635 /* Assets.xcassets */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D408C4272C8F28BB001464E7 /* Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dummy.swift; sourceTree = "<group>"; };
+		D408C42A2C8F2F77001464E7 /* NavigationLazyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationLazyView.swift; sourceTree = "<group>"; };
 		D42FB97D2C8EC529002BA635 /* CoinChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoinChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D42FB9802C8EC529002BA635 /* CoinChartApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinChartApp.swift; sourceTree = "<group>"; };
 		D42FB9822C8EC529002BA635 /* CoinTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTabView.swift; sourceTree = "<group>"; };
@@ -60,6 +64,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D408C4292C8F2F6A001464E7 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				D408C42A2C8F2F77001464E7 /* NavigationLazyView.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
 		D42FB9742C8EC529002BA635 = {
 			isa = PBXGroup;
 			children = (
@@ -82,7 +94,9 @@
 			children = (
 				D42FB9802C8EC529002BA635 /* CoinChartApp.swift */,
 				D42FB9822C8EC529002BA635 /* CoinTabView.swift */,
-				D42FB9A72C8EED43002BA635 /* Coin */,
+				D408C4272C8F28BB001464E7 /* Dummy.swift */,
+				D408C4292C8F2F6A001464E7 /* Navigation */,
+				D42FB9A72C8EED43002BA635 /* Network */,
 				D42FB99D2C8EEA46002BA635 /* Tab */,
 				D42FB9942C8EC5CE002BA635 /* ChartView.swift */,
 				D42FB9842C8EC52A002BA635 /* Assets.xcassets */,
@@ -110,7 +124,7 @@
 			path = Tab;
 			sourceTree = "<group>";
 		};
-		D42FB9A72C8EED43002BA635 /* Coin */ = {
+		D42FB9A72C8EED43002BA635 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				D42FB99B2C8EEA32002BA635 /* APIKey.swift */,
@@ -119,7 +133,7 @@
 				D42FB9AA2C8EFAC4002BA635 /* CoinSearchResponse.swift */,
 				D42FB9AE2C8F18E8002BA635 /* MarketResponse.swift */,
 			);
-			path = Coin;
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +227,9 @@
 				D42FB9832C8EC529002BA635 /* CoinTabView.swift in Sources */,
 				D42FB9932C8EC5C3002BA635 /* FavoriteView.swift in Sources */,
 				D42FB9812C8EC529002BA635 /* CoinChartApp.swift in Sources */,
+				D408C42B2C8F2F77001464E7 /* NavigationLazyView.swift in Sources */,
 				D42FB9972C8EC9A2002BA635 /* ProfileView.swift in Sources */,
+				D408C4282C8F28BB001464E7 /* Dummy.swift in Sources */,
 				D42FB9952C8EC5CE002BA635 /* ChartView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
