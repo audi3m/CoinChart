@@ -12,6 +12,8 @@ struct CoinChartApp: App {
     var body: some Scene {
         WindowGroup {
             CoinTabView()
+                .preferredColorScheme(.light)
         }
+        
     }
 }

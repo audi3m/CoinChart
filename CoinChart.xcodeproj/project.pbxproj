@@ -64,12 +64,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D408C4292C8F2F6A001464E7 /* Navigation */ = {
+		D408C4292C8F2F6A001464E7 /* ETC */ = {
 			isa = PBXGroup;
 			children = (
 				D408C42A2C8F2F77001464E7 /* NavigationLazyView.swift */,
+				D408C4272C8F28BB001464E7 /* Dummy.swift */,
 			);
-			path = Navigation;
+			path = ETC;
 			sourceTree = "<group>";
 		};
 		D42FB9742C8EC529002BA635 = {
@@ -94,8 +95,7 @@
 			children = (
 				D42FB9802C8EC529002BA635 /* CoinChartApp.swift */,
 				D42FB9822C8EC529002BA635 /* CoinTabView.swift */,
-				D408C4272C8F28BB001464E7 /* Dummy.swift */,
-				D408C4292C8F2F6A001464E7 /* Navigation */,
+				D408C4292C8F2F6A001464E7 /* ETC */,
 				D42FB9A72C8EED43002BA635 /* Network */,
 				D42FB99D2C8EEA46002BA635 /* Tab */,
 				D42FB9942C8EC5CE002BA635 /* ChartView.swift */,

@@ -15,7 +15,6 @@ struct SearchView: View {
         NavigationStack {
             ScrollView {
                 ForEach(list) { item in
-                    
                     NavigationLink {
                         NavigationLazyView(ChartView())
                     } label: {
@@ -47,8 +46,9 @@ struct SearchRowCell: View {
         HStack(spacing: 15) {
             KFImage(item.thumbURL)
                 .placeholder { Image(systemName: "questionmark.circle") }
+                .resizable()
+                .scaledToFill()
                 .frame(width: 40, height: 40)
-                .scaledToFit()
                 .clipped()
             
             VStack(alignment: .leading) {
