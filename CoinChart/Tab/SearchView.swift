@@ -25,13 +25,21 @@ struct SearchView: View {
             }
             .searchable(text: $query)
             .onSubmit(of: .search) {
-                NetworkManager.shared.searchCoins(query: query) { response in
-                    switch response {
-                    case .success(let success):
-                        print("Success")
-                        list = success.coins
-                    case .failure(let failure):
-                        print(failure)
+//                Task {
+//                    do {
+//                        let result = try await NetworkManager.shared.request(target: CoinSearchResponse.self, type: .search(query: query))
+//                        list = result.coins
+//                    } catch {
+//                        print(error.localizedDescription)
+//                    }
+//                }
+                
+                Task {
+                    do {
+                        let result = try await NetworkManager.shared.request(target: CoinSearchResponse.self, type: .search(query: query))
+                        list = result.coins
+                    } catch {
+                        print(error.localizedDescription)
                     }
                 }
             }

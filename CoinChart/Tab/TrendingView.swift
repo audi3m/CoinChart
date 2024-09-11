@@ -6,19 +6,35 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct TrendingView: View {
+    @State private var coinRankList = [Coin]()
+    @State private var nftRankList = [NFT]()
+    
     var body: some View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 40) {
                     MyFavoriteSectionView()
-                    Top15CoinSectionView()
-                    Top7NFTSectionView()
+                    Top15CoinSectionView(list: coinRankList)
+                    Top7NFTSectionView(list: nftRankList)
                 }
                 .padding(.top, 20)
+                .padding(.bottom, 100)
             }
             .navigationTitle("Crypto Coin")
+            .task {
+                Task {
+                    do {
+                        let result = try await NetworkManager.shared.request(target: TrendResponse.self, type: .trend)
+                        coinRankList = result.coins.sortByChange()
+                        nftRankList = result.nfts
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
+            }
         }
     }
 }
@@ -31,17 +47,13 @@ struct MyFavoriteSectionView: View {
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             
-            ScrollView(.horizontal, showsIndicators: false) {
+            ScrollView(.horizontal) {
                 HStack {
-                    ForEach(0..<3) { _ in
-                        MyFavoriteCell()
-                    }
-                    
-                    Text("더보기")
-                        .padding()
+                    MyFavoriteCell()
+                    MyFavoriteCell()
                 }
-                .padding(.horizontal)
             }
+            
         }
     }
     
@@ -52,7 +64,6 @@ struct MyFavoriteCell: View {
         VStack(alignment: .leading) {
             HStack {
                 Image(systemName: "bitcoinsign.circle")
-                    .font(.largeTitle)
                 VStack(alignment: .leading) {
                     Text("Bitcoin")
                         .font(.subheadline)
@@ -84,6 +95,7 @@ struct MyFavoriteCell: View {
 }
 
 struct Top15CoinSectionView: View {
+    let list: [Coin]
     var body: some View {
         VStack {
             Text("Top 15 Coin")
@@ -92,32 +104,11 @@ struct Top15CoinSectionView: View {
                 .padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 24) {
-                    VStack {
-                        RankCell()
-                        Divider()
-                        RankCell()
-                        Divider()
-                        RankCell()
+                LazyHGrid(rows: Array(repeating: .init(.flexible()), count: 3), content: {
+                    ForEach(Array(list.enumerated()), id: \.element.id) { idx, coin in
+                        CoinRankCell(rank: idx+1, item: coin.item)
                     }
-                    
-                    VStack {
-                        RankCell()
-                        Divider()
-                        RankCell()
-                        Divider()
-                        RankCell()
-                    }
-                    
-                    VStack {
-                        RankCell()
-                        Divider()
-                        RankCell()
-                        Divider()
-                        RankCell()
-                    }
-                }
-                .padding(.horizontal)
+                })
             }
         }
     }
@@ -125,6 +116,7 @@ struct Top15CoinSectionView: View {
 }
 
 struct Top7NFTSectionView: View {
+    let list: [NFT]
     var body: some View {
         VStack {
             Text("Top 7 NFT")
@@ -133,62 +125,105 @@ struct Top7NFTSectionView: View {
                 .padding(.horizontal)
             
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(alignment: .top, spacing: 24) {
-                    VStack {
-                        RankCell()
-                        Divider()
-                        RankCell()
-                        Divider()
-                        RankCell()
+                LazyHGrid(rows: Array(repeating: .init(.flexible()), count: 3), content: {
+                    ForEach(Array(list.enumerated()), id: \.element.id) { idx, nft in
+                        NFTRankCell(rank: idx+1, nft: nft)
                     }
-                    
-                    VStack {
-                        RankCell()
-                        Divider()
-                        RankCell()
-                        Divider()
-                        RankCell()
-                    }
-                    
-                    VStack {
-                        RankCell()
-                    }
-                }
-                .padding(.horizontal)
+                })
             }
+            
         }
     }
     
 }
 
-struct RankCell: View {
+struct CoinRankCell: View {
+    let rank: Int
+    let item: Item
     var body: some View {
-        HStack(spacing: 12) {
-            Text("1")
-                .font(.title)
-                .bold()
-            
-            HStack {
-                Image(systemName: "bitcoinsign.circle")
+        VStack(spacing: 10) {
+            HStack(spacing: 12) {
+                Text("\(rank)")
                     .font(.title)
-                VStack(alignment: .leading) {
-                    Text("Bitcoin")
-                        .font(.subheadline)
-                        .bold()
-                    Text("BTC")
+                    .bold()
+                
+                HStack {
+                    KFImage(item.image)
+                        .placeholder { Image(systemName: "questionmark.circle") }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipped()
+                    
+                    VStack(alignment: .leading) {
+                        Text(item.name)
+                            .font(.subheadline)
+                            .bold()
+                        Text(item.symbol)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Text(item.data.priceDouble)
+                    Text(item.data.priceChange24h.krwDouble)
                         .font(.footnote)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(item.data.priceChange24h.color)
                 }
             }
-            Spacer()
-            VStack {
-                Text("$0.4175")
-                Text("+21.18%")
-                    .font(.footnote)
-                    .foregroundStyle(.red)
+            .frame(width: 300, height: 50)
+            
+            if rank % 3 != 0 {
+                Divider()
             }
         }
-        .frame(width: 320, height: 50)
+        .padding(.horizontal)
+    }
+}
+
+struct NFTRankCell: View {
+    let rank: Int
+    let nft: NFT
+    var body: some View {
+        VStack(spacing: 10) {
+            HStack(spacing: 12) {
+                Text("\(rank)")
+                    .font(.title)
+                    .bold()
+                
+                HStack {
+                    KFImage(nft.thumbImage)
+                        .placeholder { Image(systemName: "questionmark.circle") }
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 40, height: 40)
+                        .clipped()
+                    
+                    VStack(alignment: .leading) {
+                        Text(nft.name)
+                            .font(.subheadline)
+                            .bold()
+                        Text(nft.symbol)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+                Spacer()
+                VStack(alignment: .trailing) {
+                    Text(nft.data.floorPrice)
+                    Text(nft.data.priceChangeDouble)
+                        .font(.footnote)
+                        .foregroundStyle(.red)
+                }
+            }
+            .frame(width: 300, height: 50)
+            
+            if rank % 3 != 0 {
+                Divider()
+            }
+        }
+        .padding(.horizontal)
     }
 }
 

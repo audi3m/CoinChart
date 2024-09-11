@@ -27,18 +27,18 @@ final class NetworkManager {
         }
     }
     
-//    func trendRequest(handler: @escaping (Result<TrendResponse, Error>) -> Void) {
-//        if let url = URL(string: "https://api.coingecko.com/api/v3/search/trending") {
-//            AF.request(url).responseDecodable(of: TrendResponse.self) { response in
-//                switch response.result {
-//                case .success(let success):
-//                    handler(.success(success))
-//                case .failure(let failure):
-//                    handler(.failure(failure))
-//                }
-//            }
-//        }
-//    }
+    func trendRequest(handler: @escaping (Result<String, Error>) -> Void) {
+        if let url = URL(string: "https://api.coingecko.com/api/v3/search/trending") {
+            AF.request(url).responseString { response in
+                switch response.result {
+                case .success(let success):
+                    print(success)
+                case .failure(let failure):
+                    print(failure)
+                }
+            }
+        }
+    }
 //    
 //    func searchCoins(query: String, handler: @escaping (Result<CoinSearchResponse, Error>) -> Void) {
 //        if let url = URL(string: "https://api.coingecko.com/api/v3/search?query=\(query)") {
@@ -65,9 +65,7 @@ final class NetworkManager {
 //            }
 //        }
 //    }
-     
-    
-    
+      
 }
 
 

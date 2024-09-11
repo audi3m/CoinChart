@@ -22,7 +22,7 @@ struct CoinTabView: View {
                 .tabItem { Image(systemName: "star") }
                 .tag(2)
             
-            ProfileView()
+            NetworkTestViewEE()
                 .tabItem { Image(systemName: "person") }
                 .tag(3)
         }

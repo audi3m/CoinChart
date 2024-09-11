@@ -22,20 +22,7 @@ struct MarketResponse: Decodable {
     let atl: String
     let atlDate: String
     let lastUpdated: String
-    let sparkline7d: sparkline
-//    let market_cap: String
-//    let market_cap_rank: String
-//    let fully_diluted_valuation: String
-//    let total_volume: String
-//    let price_change_24h: String
-//    let market_cap_change_24h: String
-//    let market_cap_change_percentage_24h: String
-//    let circulating_supply: String
-//    let total_supply: String
-//    let max_supply: String
-//    let ath_change_percentage: String
-//    let atl_change_percentage: String
-//    let roi: String
+    let sparkline7d: sparkline 
     
     enum CodingKeys: String, CodingKey {
         case id

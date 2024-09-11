@@ -9,7 +9,19 @@ import SwiftUI
 
 struct NetworkTestViewEE: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        ScrollView {
+            Text("Hello")
+            Button("request") {
+                NetworkManager.shared.trendRequest { response in
+                    switch response {
+                    case .success(let success):
+                        print(success)
+                    case .failure(let failure):
+                        print("Fail")
+                    }
+                }
+            }
+        }
     }
 }
 
